@@ -1,0 +1,176 @@
+defaults:
+  - models: resnet50
+  - dataset: cardiac
+  - augmentations: default
+
+# Command Center
+run_imaging: True
+run_ecg: False
+run_multimodal: False
+run_eval: False
+run_trimodal: False
+
+# Multimodal
+weight_decay: 1.e-4
+scheduler: anneal
+anneal_max_epochs: ${max_epochs}
+temperature: 0.1
+projection_dim: 128
+use_projection_head: True
+
+loss: clip
+view: augmented
+lambda_0: 0.5
+momentum: 0.99
+
+train_similarity_matrix:
+val_similarity_matrix: 
+threshold: 0.9
+similarity_divisor: 2
+
+ecg_pretrain_checkpoint: ./checkpoint-390-ncc-0.64.pth
+pretrained_ecg_strategy: trainable
+load_imagenet_weights: False
+imaging_pretrain_checkpoint: ./runs_mmcl/runs/imaging/version_None/checkpoint_best_loss-sweet-water-40.ckpt
+pretrained_imaging_strategy: trainable
+
+multiple_lr: False
+
+# Classifier
+classifier_num_layers: 2
+lr_classifier: 3.e-4
+weight_decay_classifier: 1.e-4
+init_strat: kaiming
+
+# Imaging
+augmentation_rate: 0.95
+
+# ECG
+input_channels: 1
+input_electrodes: 12
+time_steps: 2500
+model_size: tiny
+ecg_model: vit_${model_size}_patchX
+patch_height: 1
+patch_width: 100
+drop_path: 0.1
+layer_decay: 0.75 # for the optimizer
+ecg_embedding_dim: 384
+global_pool: True  
+attention_pool: True
+
+# Tabular
+data_train_tabular: tabular_data_train.csv
+data_val_tabular: tabular_data_val.csv
+corruption_rate: 0.3
+field_lengths_tabular: 
+one_hot_tabular: False
+eval_one_hot: False
+tabular_checkpoint:
+tabular_input_size: 33
+tabular_init_strat: 'xavier'
+tabular_embedding_dim: 384
+tabular_encoder_num_layers: 2
+add_linear_to_fuse: False
+# logging
+save_embeddings: False
+
+# Online classifier
+online_classifier: "ecg" # either "image" or "ecg"
+
+# Online localization
+upsample_factor_img: 2
+upsample_factor_ecg: 2
+plot_localization: True
+plot_localization_pairwise: False
+use_softmax: False
+temp: 0.6
+
+# Evaluator
+generate_embeddings: False
+keep_projector: False
+eval_train_augment_rate: 0.8
+eval_classifier: linear
+finetune_strategy: frozen
+
+lr_eval: 1.e-6
+weight_decay_eval: 0.1
+val_check_interval: 1.0
+check_val_every_n_epoch: 1
+
+vec2vec: False
+checkpoint_vec2vec: 
+
+#checkpoint: ./runs_mmcl/eval/version_None/checkpoint_best_auc-v3.ckpt 
+datatype: ecg_tabular
+
+# General
+seed: 2025
+max_epochs: 400
+warmup_epochs: 20
+task: classification
+log_images: False
+use_wandb: True
+offline: False
+test: False 
+test_and_eval: False
+combine_train_and_val: False
+weighted_sampler: False
+watch_weights: False
+num_workers: 1
+
+transform:
+version:
+transform_train:
+transform_val:
+transform_test:
+dataset_length:
+resume_training:
+wandb_id: 
+
+labels_train_short:
+labels_val_short:
+data_train_ecg_short:
+data_val_ecg_short: 
+data_train_imaging_short: 
+data_val_imaging_short: 
+field_lengths_ecg_short:
+data_train_eval_ecg_short:
+labels_train_eval_ecg_short:
+data_val_eval_ecg_short:
+labels_val_eval_ecg_short:
+data_test_eval_ecg_short:
+labels_test_eval_ecg_short:
+data_train_eval_imaging_short:
+labels_train_eval_imaging_short:
+data_val_eval_imaging_short:
+labels_val_eval_imaging_short:
+data_test_eval_imaging_short:
+labels_test_eval_imaging_short:
+train_similarity_matrix_short:
+data_train_tabular_short:
+data_val_tabular_short:
+data_train_ecg_trimodal_short:
+data_val_ecg_trimodal_short:
+data_train_imaging_trimodal_short:
+data_val_imaging_trimodal_short:
+labels_train_trimodal_short: 
+labels_val_trimodal_short:
+data_train_eval_ecg_trimodal_short:
+labels_train_eval_ecg_trimodal_short:
+data_val_eval_ecg_trimodal_short:
+labels_val_eval_ecg_trimodal_short:
+data_test_eval_ecg_trimodal_short:
+labels_test_eval_ecg_trimodal_short:
+
+data_train_eval_tabular_short:
+labels_train_eval_tabular_short:
+data_val_eval_tabular_short:
+labels_val_eval_tabular_short:
+data_test_eval_tabular_short:
+labels_test_eval_tabular_short:
+
+data_base: /cluster/scratch/fgirlanda/mmcl_tensors
+
+patch_size:
+input_size:

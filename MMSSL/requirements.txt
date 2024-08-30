@@ -1,0 +1,13 @@
+pandas==2.2.2
+wandb 
+seaborn==0.13.2
+matplotlib==3.9.2
+scikit-learn==1.5.1
+pytorch-lightning==1.9.5
+lightning-bolts==0.7.0
+lightly==1.5.12
+timm==1.0.9
+lightning-bolts @ git+https://github.com/PytorchLightning/lightning-bolts.git@master
+hydra-core==1.4.0.dev1
+torch==2.4.0
+numpy==1.23.5

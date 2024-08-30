@@ -1,0 +1,72 @@
+# @package _global_
+defaults:
+ - _self_
+
+target: MI
+
+num_classes: 2
+weights: [1.02, 47.86]
+#weights: [1.0, 1.0]
+live_loading: False
+delete_segmentation: False
+balanced_accuracy: False
+
+# For the self-supervised pre-training
+data_train_ecg: ECG_tensor_train.pt
+data_val_ecg: ECG_tensor_val.pt
+
+data_train_imaging: CMI_tensor_train.pt
+data_val_imaging: CMI_tensor_val.pt
+
+# For the online classifier during self-supervised pre-training
+labels_train: ${target}_tensor_train.pt 
+labels_val: ${target}_tensor_val.pt 
+
+# For the self-supervised pre-training
+data_train_ecg_trimodal: ECG_data_tensor_trimodal_train.pt
+data_val_ecg_trimodal: ECG_data_tensor_trimodal_val.pt
+
+data_train_imaging_trimodal: CMI_data_tensor_trimodal_train.pt
+data_val_imaging_trimodal: CMI_data_tensor_trimodal_val.pt
+
+# For the online classifier during self-supervised pre-training
+labels_train_trimodal: ${target}_data_tensor_trimodal_train.pt 
+labels_val_trimodal: ${target}_data_tensor_trimodal_val.pt 
+
+# For the downstream task 
+data_train_eval_ecg: ECG_tensor_balanced_train.pt
+labels_train_eval_ecg: ${target}_tensor_balanced_train.pt 
+
+data_val_eval_ecg: ECG_tensor_val.pt
+labels_val_eval_ecg: ${target}_tensor_val.pt 
+
+data_test_eval_ecg: ECG_tensor_test.pt
+labels_test_eval_ecg: ${target}_tensor_test.pt 
+
+data_train_eval_ecg_trimodal: ECG_data_tensor_trimodal_balanced_train.pt
+labels_train_eval_ecg_trimodal: ${target}_data_tensor_trimodal_balanced_train.pt 
+
+data_val_eval_ecg_trimodal: ECG_data_tensor_trimodal_val.pt
+labels_val_eval_ecg_trimodal: ${target}_data_tensor_trimodal_val.pt 
+
+data_test_eval_ecg_trimodal: ECG_data_tensor_trimodal_test.pt
+labels_test_eval_ecg_trimodal: ${target}_data_tensor_trimodal_test.pt 
+
+data_train_eval_imaging: CMI_tensor_balanced_train.pt
+labels_train_eval_imaging: ${target}_tensor_balanced_train.pt
+
+data_val_eval_imaging: CMI_tensor_val.pt
+labels_val_eval_imaging: ${target}_tensor_val.pt 
+
+data_test_eval_imaging: CMI_tensor_test.pt
+labels_test_eval_imaging: ${target}_tensor_test.pt
+
+data_train_eval_tabular: tabular_data_balanced_train.csv
+labels_train_eval_tabular: ${target}_data_tensor_trimodal_train.pt  
+
+data_val_eval_tabular: tabular_data_val.csv
+labels_val_eval_tabular: ${target}_data_tensor_trimodal_val.pt 
+
+data_test_eval_tabular: tabular_data_test.csv
+labels_test_eval_tabular: ${target}_data_tensor_trimodal_test.pt  
+
